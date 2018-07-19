@@ -34,5 +34,23 @@ namespace The_Book
             float length = rand.NextFloat(minLength, maxLength);
             return new Vector2(length * (float)Math.Cos(theta), length * (float)Math.Sin(theta));
         }
+
+        // Convert 2 Vector2 points to Rectangle
+        public static Rectangle toRect(Vector2 a, Vector2 b)
+        {
+            //we need to figure out the top left and bottom right coordinates
+            //we need to account for the fact that a and b could be any two opposite points of a rectangle, not always coming into this method as topleft and bottomright already.
+            int smallestX = (int)Math.Min(a.X, b.X); //Smallest X
+            int smallestY = (int)Math.Min(a.Y, b.Y); //Smallest Y
+            int largestX = (int)Math.Max(a.X, b.X);  //Largest X
+            int largestY = (int)Math.Max(a.Y, b.Y);  //Largest Y
+
+            //calc the width and height
+            int width = largestX - smallestX;
+            int height = largestY - smallestY;
+
+            //assuming Y is small at the top of screen
+            return new Rectangle(smallestX, smallestY, width, height);
+        }
     }
 }

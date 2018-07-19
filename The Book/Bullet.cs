@@ -26,7 +26,7 @@ namespace The_Book
             Position += Velocity;
 
             // delete bullets that go off-screen
-            if (!GameRoot.Viewport.Bounds.Contains(Position.ToPoint()))
+            if (!GameRoot.WorldSize.Contains(Position.ToPoint()))
                 IsExpired = true;
         }
     }

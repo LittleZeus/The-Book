@@ -70,7 +70,7 @@ namespace The_Book
             }
 
             Position += Velocity;
-            Position = Vector2.Clamp(Position, Size / 2, GameRoot.ScreenSize - Size / 2);
+            Position = Vector2.Clamp(Position, GameRoot.StartWorldPoint, GameRoot.EndWorldPoint);
 
             Velocity *= 0.8f;
         }

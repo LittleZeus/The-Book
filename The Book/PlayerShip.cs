@@ -70,7 +70,7 @@ namespace The_Book
             const float speed = 8;
             Velocity = speed * Input.GetMovementDirection();
             Position += Velocity;
-            Position = Vector2.Clamp(Position, Size / 2, GameRoot.ScreenSize - Size / 2);
+            Position = Vector2.Clamp(Position, GameRoot.StartWorldPoint, GameRoot.EndWorldPoint);
 
             if (Velocity.LengthSquared() > 0)
                 Orientation = Velocity.ToAngle();

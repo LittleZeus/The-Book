@@ -63,7 +63,7 @@ namespace The_Book
 
         public static Vector2 GetAimDirection()
         {
-            Vector2 direction = MousePosition - PlayerShip.Instance.Position;
+            Vector2 direction = GameRoot.Camera.ScreenToWorld(MousePosition) - PlayerShip.Instance.Position;
 
             if (direction == Vector2.Zero)
                 return Vector2.Zero;

@@ -32,6 +32,7 @@ namespace The_Book
         public static Song Music { get; private set; }
 
         private static readonly Random rand = new Random();
+        public static readonly Camera Camera = new Camera();
 
         public static bool pause = true;
 
@@ -47,6 +48,10 @@ namespace The_Book
         private static SoundEffect[] spawns;
         public static SoundEffect Spawn { get { return spawns[rand.Next(spawns.Length)]; } }
 
+        public static Vector2 StartWorldPoint = new Vector2 (0,0);
+        public static Vector2 EndWorldPoint = new Vector2(3000, 2000);
+        public static Rectangle WorldSize = Extensions.toRect(StartWorldPoint, EndWorldPoint);
+
         GraphicsDeviceManager graphics;
         public static SpriteBatch spriteBatch;
 
@@ -56,8 +61,8 @@ namespace The_Book
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = @"Content";
 
-            graphics.PreferredBackBufferWidth = 1200;
-            graphics.PreferredBackBufferHeight = 900;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
         }
 
         protected override void Initialize()
@@ -67,8 +72,11 @@ namespace The_Book
             EntityManager.Add(PlayerShip.Instance);
 
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.2f;
+            MediaPlayer.Volume = 0.05f;
             MediaPlayer.Play(GameRoot.Music);
+
+            Camera.ViewportWidth = graphics.GraphicsDevice.Viewport.Width;
+            Camera.ViewportHeight = graphics.GraphicsDevice.Viewport.Height;
 
         }
 
@@ -98,6 +106,8 @@ namespace The_Book
             GameTime = gameTime;
             Input.Update();
 
+            Camera.Update();
+
             // Allows the game to exit
             if (Input.WasButtonPressed(Buttons.Back) || Input.WasKeyPressed(Keys.Escape))
                 this.Exit();
@@ -121,12 +131,11 @@ namespace The_Book
             GraphicsDevice.Clear(Color.Black);
 
             // Draw entities. Sort by texture for better batching.
-            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
+            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.NonPremultiplied, null, null, null, null, Camera.TranslationMatrix);
             EntityManager.Draw(spriteBatch);
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
-            EntityManager.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.NonPremultiplied);
             // draw the custom mouse cursor
             spriteBatch.Draw(GameRoot.Pointer, Input.MousePosition, Color.White);
             //draw round timer
