@@ -77,11 +77,7 @@ namespace The_Book
                     {
                         enemies[i].health = enemies[i].health - 1;
                         if (enemies[i].health <= 0)
-                        {
-                            if (enemies[i].isBoss == true)
-                            {
-                                Round.Next();
-                            }
+                        {                          
                             enemies[i].WasShot();
                         }
                         bullets[j].IsExpired = true;

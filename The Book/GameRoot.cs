@@ -34,8 +34,6 @@ namespace The_Book
         private static readonly Random rand = new Random();
         public static readonly Camera Camera = new Camera();
 
-        public static bool pause = true;
-
         private static SoundEffect[] explosions;
 
         public static DateTime current = new DateTime();
@@ -61,8 +59,8 @@ namespace The_Book
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = @"Content";
 
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1800;
+            graphics.PreferredBackBufferHeight = 1000;
         }
 
         protected override void Initialize()
@@ -113,15 +111,9 @@ namespace The_Book
                 this.Exit();
             Menu.Update();
 
-            Round.Update();
-            if (pause == false)
-            {
-                Timer.Update();
-                EntityManager.Update();
-                EnemySpawner.Update();
-            }
 
-            Timer.Time();
+            EntityManager.Update();
+            EnemySpawner.Update();
 
             base.Update(gameTime);
         }
@@ -138,30 +130,10 @@ namespace The_Book
             spriteBatch.Begin(SpriteSortMode.Texture, BlendState.NonPremultiplied);
             // draw the custom mouse cursor
             spriteBatch.Draw(GameRoot.Pointer, Input.MousePosition, Color.White);
-            //draw round timer
-            spriteBatch.DrawString(GameRoot.Font, "Time: " + Timer.currentRound, new Vector2(15, 40), Color.GhostWhite);
-            spriteBatch.DrawString(GameRoot.Font, "Round: " + Round.round, new Vector2(15, 10), Color.GhostWhite);
-            spriteBatch.DrawString(GameRoot.Font, "Spawn rate: " + EnemySpawner.inverseSpawnChance, new Vector2(15, 70), Color.GhostWhite);
+
+            spriteBatch.DrawString(GameRoot.Font, "Game Time: " + gameTime.TotalGameTime, new Vector2(15, 10), Color.GhostWhite);
 
             spriteBatch.End();
-
-            //Draw Round info
-            if (Round.roundStart == true)
-            {
-                String drawRound = "Round " + Round.round;
-                var textWidth = GameRoot.RoundFont.MeasureString(drawRound).X;
-                spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
-                spriteBatch.DrawString(RoundFont, drawRound, new Vector2((ScreenSize.X / 2) - (textWidth / 2), 100), Color.CornflowerBlue);
-                spriteBatch.End();
-            }
-            if (Timer.current < 5)
-            {
-                String roundCount = Round.count;
-                var textWidth = GameRoot.RoundFont.MeasureString(roundCount).X;
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
-                spriteBatch.DrawString(RoundFont, roundCount, new Vector2((ScreenSize.X / 2) - (textWidth / 2), 300), Color.CornflowerBlue);
-                spriteBatch.End();
-            }
 
             base.Draw(gameTime);
         }

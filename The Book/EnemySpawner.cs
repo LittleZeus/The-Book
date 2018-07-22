@@ -10,8 +10,8 @@ namespace The_Book
     static class EnemySpawner
     {
         static Random rand = new Random();
-        public static float inverseSpawnChance = Round.inverseSpawnChance;
-        public static float maxInverseSpawnChance = Round.maxInverseSpawnChance;
+        public static float inverseSpawnChance = 60;
+        public static float maxInverseSpawnChance = 50;
         public static bool bossSpawn = false;
 
         public static void Update()
@@ -59,13 +59,13 @@ namespace The_Book
 
         public static void SpawnRate()
         {
-            inverseSpawnChance = Round.inverseSpawnChance;
-            maxInverseSpawnChance = Round.maxInverseSpawnChance;
+            inverseSpawnChance = 60;
+            maxInverseSpawnChance = 50;
         }
 
         public static void Reset()
         {
-            inverseSpawnChance = Round.inverseSpawnChance;
+            inverseSpawnChance = 60;
         }
     }
 }

@@ -14,24 +14,7 @@ namespace The_Book
 
         public static void Update()
         {
-            if (Input.WasKeyPressed(Keys.P) == true)
-            {
-                if (GameRoot.pause == false)
-                {
-                    GameRoot.pause = true;
-                }
-                else
-                {
-                    GameRoot.pause = false;
-                }
-            }
-            if (Input.WasKeyPressed(Keys.N) == true)
-            {
-                Round.Next();
-            }
-
-
-
+          
         }
 
     }

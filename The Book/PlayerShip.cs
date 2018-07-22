@@ -85,9 +85,8 @@ namespace The_Book
 
         public void Kill()
         {
-            Timer.Reset();
-            GameRoot.pause = true;
-            framesUntilRespawn = 60;
+
+            framesUntilRespawn = 30;
         }
     }
 }
