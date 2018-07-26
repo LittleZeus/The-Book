@@ -54,7 +54,7 @@ namespace The_Book
 
         public void Update()
         {
-            CenterOn(PlayerShip.Instance.Position);
+            PanTo(PlayerShip.Instance.Position);
         }
 
         // Call this method with negative values to zoom out
@@ -74,18 +74,12 @@ namespace The_Book
         // Move the camera in an X and Y amount based on the cameraMovement param.
         // if clampToMap is true the camera will try not to pan outside of the
         // bounds of the map.
-        public void MoveCamera(Vector2 cameraMovement, bool clampToMap = false)
+        public void MoveCamera(Vector2 cameraMovement)
         {
             Vector2 newPosition = Position + cameraMovement;
 
-            if (clampToMap)
-            {
-                //Position = MapClampedPosition(newPosition);
-            }
-            else
-            {
                 Position = newPosition;
-            }
+
         }
 
         public Rectangle ViewportWorldBoundry()
@@ -104,6 +98,12 @@ namespace The_Book
         public void CenterOn(Vector2 position)
         {
             Position = position;
+        }
+
+        public void PanTo(Vector2 position)
+        {
+            Vector2 movement = (position - Position) / 3;
+            MoveCamera(movement);
         }
 
 

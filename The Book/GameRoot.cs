@@ -75,6 +75,7 @@ namespace The_Book
 
             Camera.ViewportWidth = graphics.GraphicsDevice.Viewport.Width;
             Camera.ViewportHeight = graphics.GraphicsDevice.Viewport.Height;
+            Camera.MoveCamera(PlayerShip.Instance.Position);
 
         }
 
